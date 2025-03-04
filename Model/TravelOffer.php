@@ -1,8 +1,7 @@
 <?php
-
 class TravelOffer {
-    // Attributs privés
-    private int $id;
+
+    public int $id;
     private string $title;
     private string $destination;
     private DateTime $departure_date;
@@ -11,81 +10,91 @@ class TravelOffer {
     private bool $disponibility;
     private string $category;
 
-    // Constructeur paramétré
-    public function __construct(
-        int $id,
-        string $title,
-        string $destination,
-        DateTime $departure_date,
-        DateTime $return_date,
-        float $price,
-        bool $disponibility,
-        string $category
-    ) {
-        $this->id = $id;
+    public function __construct($title = null, $destination = null, $departure_date = null, $return_date = null, $price = null, $disponibility = null, $category = null)
+    {
         $this->title = $title;
         $this->destination = $destination;
-        $this->departure_date = $departure_date;
-        $this->return_date = $return_date;
+        $this->departure_date = is_string($departure_date) ? new DateTime($departure_date) : $departure_date;
+        $this->return_date = is_string($return_date) ? new DateTime($return_date) : $return_date;
         $this->price = $price;
         $this->disponibility = $disponibility;
         $this->category = $category;
     }
 
-    // Getters pour accéder aux attributs privés
-    public function getId(): int {
-        return $this->id;
-    }
-
-    public function getTitle(): string {
+    public function getTitle(): string
+    {
         return $this->title;
     }
 
-    public function getDestination(): string {
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+        return $this;
+    }
+
+    public function getDestination(): string
+    {
         return $this->destination;
     }
 
-    public function getDepartureDate(): DateTime {
+    public function setDestination(string $destination): self
+    {
+        $this->destination = $destination;
+        return $this;
+    }
+
+    public function getDepartureDate(): ?DateTime
+    {
         return $this->departure_date;
     }
 
-    public function getReturnDate(): DateTime {
+    public function setDepartureDate(string $departure_date): self
+    {
+        $this->departure_date = new DateTime($departure_date);
+        return $this;
+    }
+
+    public function getReturnDate(): ?DateTime
+    {
         return $this->return_date;
     }
 
-    public function getPrice(): float {
+    public function setReturnDate(string $return_date): self
+    {
+        $this->return_date = new DateTime($return_date);
+        return $this;
+    }
+
+    public function getPrice(): float
+    {
         return $this->price;
     }
 
-    public function getDisponibility(): bool {
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+        return $this;
+    }
+
+    public function getDisponibility(): bool
+    {
         return $this->disponibility;
     }
 
-    public function getCategory(): string {
+    public function setDisponibility(bool $disponibility): self
+    {
+        $this->disponibility = $disponibility;
+        return $this;
+    }
+
+    public function getCategory(): string
+    {
         return $this->category;
     }
 
-    // Méthode pour afficher les informations de l'offre de voyage dans un tableau HTML
-    public function show(): void {
-        echo "<table border='1' style='border-collapse: collapse; width: 100%;'>";
-        echo "<tr>
-                <th>Title</th>
-                <th>Destination</th>
-                <th>Departure Date</th>
-                <th>Return Date</th>
-                <th>Price</th>
-                <th>Disponibility</th>
-                <th>Category</th>
-              </tr>";
-        echo "<tr>";
-        echo "<td>" . htmlspecialchars($this->title) . "</td>";
-        echo "<td>" . htmlspecialchars($this->destination) . "</td>";
-        echo "<td>" . $this->departure_date->format('Y-m-d') . "</td>";
-        echo "<td>" . $this->return_date->format('Y-m-d') . "</td>";
-        echo "<td>" . number_format($this->price, 2) . "€</td>";
-        echo "<td>" . ($this->disponibility ? 'Yes' : 'No') . "</td>";
-        echo "<td>" . htmlspecialchars($this->category) . "</td>";
-        echo "</tr>";
-        echo "</table>";
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
+        return $this;
     }
 }
